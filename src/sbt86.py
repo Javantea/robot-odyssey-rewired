@@ -287,7 +287,7 @@ class Indirect:
             else:
                 return "read16(&%s)" % mem
         else:
-            raise InternalError("Unsupported memory access width")
+            raise InternalError("Unsupported memory access width {0}".format(self.width))
 
 
 
@@ -510,10 +510,10 @@ class Instruction:
         # Split up the ndisasm line into useful pieces.
 
         tokens = line.strip().split(None, 3)
-        try:
+        if len(tokens) == 4:
             addr, encoding, op, args = tokens
             args = args.split(',')
-        except ValueError:
+        else:
             addr, encoding, op = tokens
             args = ()
 
@@ -1240,6 +1240,7 @@ class Instruction:
             # matches, we cause a runtime error.
 
             # XXX: Only handles near calls
+            print(arg)
 
             return "switch (%s) { %s default: g.proc->failedDynamicBranch(%s,%s,%s); }" % (
                 arg.codegen(),

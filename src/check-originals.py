@@ -126,5 +126,5 @@ if __name__ == '__main__':
     if len(sys.argv) == 3:
         main(sys.argv[1], sys.argv[2])
     else:
-        sys.stderr.write("usage: %s <src> <dest>" % sys.argv[0])
+        print("usage: %s <src> <dest>" % sys.argv[0], file=sys.stderr)
         sys.exit(1)

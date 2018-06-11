@@ -1,4 +1,4 @@
-PYTHON      := python3
+PYTHON      := python3.6
 CC          := emcc
 
 CCFLAGS := -std=c++11 -Oz --bind
