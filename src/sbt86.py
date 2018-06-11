@@ -428,6 +428,9 @@ def _genCycleTable():
         ('stc',): 2,
         ('cbw',): 2,
 
+        ('lodsb',): 12,
+        ('lodsw',): 12,
+
         # Stubs for instructions that take a long and variable
         # amount of time to execute. No sane programmer would
         # use these in a timing-critical loop.. (fingers crossed)
@@ -1103,6 +1106,13 @@ class Instruction:
         src = Indirect(Register('ds'), (Register('si'),), 1)
         return "%s = %s; %s++;%s" % (
             Register('al').codegen(), src.codegen(),
+            Register('si').codegen(),
+            self._genTraces((src, 'r')))
+
+    def codegen_lodsw(self):
+        src = Indirect(Register('ds'), (Register('si'),), 1)
+        return "%s = %s; %s+=2;%s" % (
+            Register('ax').codegen(), src.codegen(),
             Register('si').codegen(),
             self._genTraces((src, 'r')))
 
